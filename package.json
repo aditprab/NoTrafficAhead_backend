@@ -1,0 +1,22 @@
+{
+"name": "ChatSystem-Node",
+  "version": "1.0.0",
+  "description": "Backend for No Traffic Ahead resource guide for South Bay Coalition to End Human Trafficking.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aditprab/sbecht_backend"
+  },
+  "author": "Adithya Prabhakaran, Nathan Lam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aditprab/sbecht_backend/issues"
+  },
+  "homepage": "https://github.com/aditprab/sbecht_backend",
+  "private": true,
+  "dependencies": {
+    "express": "^4.11.2",
+    "mongoose":"3.8.25",
+    "body-parser": "1.11.0"
+  }
+}
+
