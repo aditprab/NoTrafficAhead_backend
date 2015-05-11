@@ -2,7 +2,9 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
+
 var newResourceSchema = new Schema({
+			approved : Boolean,
 			generalPhase:
 			{
 				contactInfo:
@@ -341,7 +343,8 @@ var newResourceSchema = new Schema({
 			}
 });
 
-var newResource = mongoose.model('newResource', newResourceSchema);
+//Create model based on schema. Third argument is collection name- PLURALIZE in DB, mongoose will pluralize for you...!
+var newResource = mongoose.model('newResource', newResourceSchema, 'nta_guide_preApprovals');
 
 module.exports= {
 	newResource : newResource
