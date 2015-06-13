@@ -6,7 +6,10 @@
     "type": "git",
     "url": "https://github.com/aditprab/sbecht_backend"
   },
-  "author": "Adithya Prabhakaran, Nathan Lam",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Adithya Prabhakaran",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/aditprab/sbecht_backend/issues"

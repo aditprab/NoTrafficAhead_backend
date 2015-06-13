@@ -10,6 +10,8 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
 
+
+
 //Set server port
 server.listen(2000);
 
@@ -29,22 +31,34 @@ app.post('/newResource', function(request, response){
 	//No auth requirements here.
 	console.log("POST /newResource called.");
 
-	var Schema = mongoose.Schema;
-	//bring in the mongo schema. 
-	var resourceSchema = new Schema({resourceBody:{}}, {strict:false});
-	//Create model based on schema. Third argument is collection name- PLURALIZE in DB, or mongoose will pluralize for you (problems??)..!
-	var ResourceModel = mongoose.model('newResource', resourceSchema, 'nta_guide_preApprovals');
+
+	var ResourceModel = require("./models/schema.js").newResource;
 	var guideEntry = new ResourceModel();
 	
  	console.log(request.body.resourceBody);
 
 
 	guideEntry.resourceBody = request.body.resourceBody;
-	//guideEntry.markModified('resourceBody');
+
 	
 	guideEntry.save(function(err) {
 	       console.log("New Resource CREATED");
 	       console.log(guideEntry.resourceBody);
 	});
 	
+});
+
+
+app.post('/login', function(request, res){
+	
+	console.log("POST /login called.");
+	
+	var username = request.body.username;
+	var password = request.body.password;
+	
+	console.log(username);
+	console.log(password);
+	if((username == "admin") && (password == "RGuE0BlT3hd3bHlJ")){
+		response.status(200).send({"message":"GOOD TO GO!"});
+	}
 });
