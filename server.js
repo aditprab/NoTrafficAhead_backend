@@ -8,9 +8,15 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended:true }));
 
-
-
+app.all('/*', function(req, res, next) {
+  //Allow cross origin resource sharing to allow ajax calls to localhost. 
+  res.header('Access-Control-Allow-Origin', req.headers.origin || "*");
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,HEAD,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'content-Type,x-requested-with');
+  next();
+});
 
 //Set server port
 server.listen(2000);
@@ -35,21 +41,38 @@ app.post('/newResource', function(request, response){
 	var ResourceModel = require("./models/schema.js").newResource;
 	var guideEntry = new ResourceModel();
 	
- 	console.log(request.body.resourceBody);
+ 	console.log(request.body);
 
 
 	guideEntry.resourceBody = request.body.resourceBody;
 
 	
 	guideEntry.save(function(err) {
+		if(err) {
+			console.log("an error occurred");
+			response.send('failure');
+			return;
+		}
 	       console.log("New Resource CREATED");
 	       console.log(guideEntry.resourceBody);
 	});
+	response.send('success');
+	return;
+});
+
+app.get('/resourcesToApprove', function(request, response){
+	//Gets all resources in temporary database. Returns JSON array.
+	console.log("GET /resourcesToApprove");
+	
+	//Declare json array. Make DB call to get the resources one at a time, push into json array.
+	
+
+	
+	
 	
 });
 
-
-app.post('/login', function(request, res){
+app.post('/login', function(request, response){
 	
 	console.log("POST /login called.");
 	
