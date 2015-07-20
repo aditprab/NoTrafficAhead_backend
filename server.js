@@ -19,7 +19,7 @@ app.all('/*', function(req, res, next) {
 });
 
 //Set server port
-server.listen(2000);
+server.listen(process.env.PORT || 2000);
 
 server.listen(app.get('port'), function () {
     console.log('Express server running, listening on port ' + server.address().port);
