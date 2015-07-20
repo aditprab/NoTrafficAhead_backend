@@ -36,25 +36,22 @@ app.post('/newResource', function(request, response){
 	//Posts new resource to the TEMPORARY database for approval by admin.
 	//No auth requirements here.
 	console.log("POST /newResource called.");
-
-
+	
 	var ResourceModel = require("./models/schema.js").newResource;
 	var guideEntry = new ResourceModel();
 	
  	console.log(request.body);
-
-
+	 
 	guideEntry.resourceBody = request.body.resourceBody;
-
-	
 	guideEntry.save(function(err) {
 		if(err) {
 			console.log("an error occurred");
 			response.send('failure');
 			return;
 		}
-	       console.log("New Resource CREATED");
-	       console.log(guideEntry.resourceBody);
+		
+	    console.log("New resource created and entered into pre approval db.");
+	    console.log(guideEntry.resourceBody);
 	});
 	response.send('success');
 	return;
@@ -62,14 +59,41 @@ app.post('/newResource', function(request, response){
 
 app.get('/resourcesToApprove', function(request, response){
 	//Gets all resources in temporary database. Returns JSON array.
-	console.log("GET /resourcesToApprove");
+	console.log("GET /resourcesToApprove called");
 	
 	//Declare json array. Make DB call to get the resources one at a time, push into json array.
+	response.status(200).send({"message":"Path works."});
 	
+});
 
+app.post('/approveNewResource', function(request, response){
+	//Posts new resource to the TEMPORARY database for approval by admin.
+	//No auth requirements here.
+	console.log("POST /approveNewResource called.");
 	
+	var ResourceModel = require("./models/finalSchema.js").newResource;
+	var guideEntry = new ResourceModel();
 	
-	
+ 	console.log(request.body);
+	 
+	guideEntry.resourceBody = request.body.resourceBody;
+	guideEntry.save(function(err) {
+		if(err) {
+			console.log("an error occurred");
+			response.send('failure');
+			return;
+		}
+		
+		else{
+			response.send('success');
+			console.log("New resource created and entered into final db.");
+	    	console.log(guideEntry.resourceBody);
+		}
+
+	});
+
+
+	return;
 });
 
 app.post('/login', function(request, response){
